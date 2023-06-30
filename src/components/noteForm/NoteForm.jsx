@@ -28,7 +28,7 @@ const NoteForm = () => {
       setNewNote({ ...newNote, title: "", tagline: "", note: "" });
     } else {
       try {
-        const uuid = uid();
+        const uuid = Date.now();
         await set(ref(db, `${uuid}`), { uuid, ...newNote });
         toast("Note updated");
         setNewNote({ ...newNote, title: "", tagline: "", note: "" });

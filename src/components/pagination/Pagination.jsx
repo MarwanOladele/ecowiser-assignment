@@ -9,13 +9,13 @@ const Pagination = ({ currentPage, totalPages, onNextPage, onPrevPage }) => {
       <div className="w-full h-full flex justify-center">
         <div className="flex gap-3 h-full w-2/6 mx-auto items-center  justify-center ">
           <button onClick={onPrevPage} disabled={currentPage === 1}>
-            <BsFillArrowLeftSquareFill size={30} className="text-[#6c6b6b]"/>
+            <BsFillArrowLeftSquareFill size={30} className="text-[#808080]"/>
           </button>
           <span className="">
             {currentPage} of {totalPages}
           </span>
           <button onClick={onNextPage} disabled={currentPage === totalPages}>
-            <BsFillArrowRightSquareFill size={30} className="text-[#6c6b6b]"/>
+            <BsFillArrowRightSquareFill size={30} className="text-[#808080]"/>
           </button>
         </div>
       </div>

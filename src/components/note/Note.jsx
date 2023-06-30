@@ -1,7 +1,10 @@
-import { onValue, ref } from "firebase/database";
+import { onValue, ref, remove } from "firebase/database";
 import { useEffect, useState } from "react";
 import { db } from "../../firebase";
 import Pagination from "../pagination/Pagination";
+import { MdDelete } from "react-icons/md";
+import { BsPinFill } from "react-icons/bs";
+import { toast } from "react-toastify";
 
 const Note = () => {
   const [notes, setNotes] = useState([]);
@@ -18,14 +21,16 @@ const Note = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
   // Get the items for the current page
-  const currentItems = notes
-    .sort((a, b) => a.createdAt - b.createdAt)
-    .slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = notes.slice(indexOfFirstItem, indexOfLastItem);
 
   useEffect(() => {
     onValue(ref(db), (snapshot) => {
       const data = snapshot.val();
-      setNotes(Object.values(data));
+      if (data) {
+        setNotes(Object.values(data));
+      } else {
+        setNotes([]);
+      }
     });
   }, []);
 
@@ -43,15 +48,47 @@ const Note = () => {
     }
   };
 
+  const handleDelete = (note) => {
+    remove(ref(db, `/${note.uuid}`));
+    toast.error("Note deleted");
+  };
+
   return (
-    <section className="w-full mt-10 h-[60vh]">
-      <div className="w-5/6 mx-auto flex flex-wrap justify-around items-start gap-4 h-full">
-        {currentItems.map((note) => (
+    <section className="w-full mt-8 h-[60vh]">
+      <div className="w-5/6 mx-auto flex flex-wrap justify-start items-start gap-4 h-full">
+        {currentItems?.reverse().map((note) => (
           <div
-            className="w-[32%] border-[1px] dark:border-gray-400 rounded border-solid h-[28vh]"
+            className="w-[389px] border-[1px] border-[#8ec09f] rounded border-solid h-[28vh] p-3 pt-7 border-t-[25px] relative shadow-md"
             key={note.uuid}
+            onClick={() => {
+              console.log(2);
+            }}
           >
-            {note.title}
+            <div className="text-[16px] font-bold">
+              <span className=" ">Title:</span> <span>{note.title}</span>
+            </div>
+            <div className="text-[15px]">
+              <span className="font-normal">Tagline:</span>{" "}
+              <span>{note.tagline}</span>
+            </div>
+            <div className="text-[13px] font-extralight">
+              <span className=" ">Note:</span> <span>{note.note}</span>
+            </div>
+            <div className="absolute top-1 right-3 flex gap-1 items-center">
+              <div className="">
+                <MdDelete
+                  size={24}
+                  className=" text-[#8ec09f] cursor-pointer"
+                  onClick={() => handleDelete(note)}
+                />
+              </div>
+              <div className="">
+                <BsPinFill
+                  size={24}
+                  className="cursor-pointer text-[#8ec09f]"
+                />
+              </div>
+            </div>
           </div>
         ))}
       </div>
