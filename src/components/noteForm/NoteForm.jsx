@@ -5,8 +5,6 @@ import { uid } from "uid";
 import { ref, set } from "firebase/database";
 
 const NoteForm = () => {
-  const [notes, setNotes] = useState([]);
-
   const [newNote, setNewNote] = useState({
     title: "",
     tagline: "",
@@ -14,7 +12,7 @@ const NoteForm = () => {
     pinned: false,
   });
 
-  const { title, tagline, note, pinned } = newNote;
+  const { title, tagline, note } = newNote;
 
   const inputStyle = `border text-gray-900 text-sm rounded-sm w-full p-1.5  
      dark:border-gray-300 dark:placeholder-gray-500 outline-none`;
@@ -27,10 +25,12 @@ const NoteForm = () => {
     e.preventDefault();
     if (!title || !tagline || !note) {
       toast.error("Please enter a value in the input fields");
+      setNewNote({ ...newNote, title: "", tagline: "", note: "" });
     } else {
       try {
         const uuid = uid();
         await set(ref(db, `${uuid}`), { uuid, ...newNote });
+        toast("Note updated");
         setNewNote({ ...newNote, title: "", tagline: "", note: "" });
       } catch (err) {
         toast.error(err);
@@ -72,6 +72,7 @@ const NoteForm = () => {
               name="note"
               value={note}
               onChange={handleChange}
+              maxLength={100}
             />
           </div>
         </div>

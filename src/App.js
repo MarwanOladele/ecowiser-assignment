@@ -1,4 +1,5 @@
 import Navbar from "./components/navbar/Navbar";
+import Note from "./components/note/Note";
 import NoteForm from "./components/noteForm/NoteForm";
 import { ToastContainer } from "react-toastify";
 
@@ -10,6 +11,7 @@ function App() {
       <ToastContainer position="top-center"/>
       <Navbar />
       <NoteForm />
+      <Note/>
     </div>
   );
 }
