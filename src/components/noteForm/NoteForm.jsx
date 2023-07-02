@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { db } from "../../firebase";
-import { uid } from "uid";
 import { ref, set } from "firebase/database";
 
 const NoteForm = () => {
