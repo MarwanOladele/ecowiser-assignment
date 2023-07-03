@@ -79,7 +79,9 @@ const Note = () => {
       if (note.uuid === id) {
         note.pinned = !note.pinned;
       }
-      return note;
+      // return note;
+      update(ref(db, `${note.uuid}`), { ...note });
+      console.log(123);
     });
   };
 
