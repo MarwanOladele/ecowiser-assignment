@@ -14,7 +14,7 @@ const PinNote = () => {
     title: "",
     tagline: "",
     note: "",
-    pinned: false,
+    pinned: true,
   });
   const [tempuuid, setTempuuid] = useState("");
 

@@ -30,8 +30,6 @@ const Note = () => {
     }
   });
 
-  console.log(totalPages);
-
   const totalPages1 = Math.ceil(totalPages / itemsPerPage);
 
   // Calculate the index of the first and last items of the current page
