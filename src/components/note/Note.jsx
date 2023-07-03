@@ -1,9 +1,9 @@
-import { onValue, ref, remove } from "firebase/database";
+import { onValue, ref, remove, update } from "firebase/database";
 import { useEffect, useState } from "react";
 import { db } from "../../firebase";
 import Pagination from "../pagination/Pagination";
 import { MdDelete } from "react-icons/md";
-import { BsPinFill } from "react-icons/bs";
+import { BsPinFill, BsPin } from "react-icons/bs";
 import { toast } from "react-toastify";
 import Update from "../update/Update";
 
@@ -23,7 +23,7 @@ const Note = () => {
   const itemsPerPage = 6;
 
   // calculate total number of pages
-  const totalPages = Math.ceil(notes.length / itemsPerPage)
+  const totalPages = Math.ceil(notes.length / itemsPerPage);
 
   // Calculate the index of the first and last items of the current page
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -74,6 +74,15 @@ const Note = () => {
     });
   };
 
+  const setPin = (id) => {
+    notes.map((note) => {
+      if (note.uuid === id) {
+        note.pinned = !note.pinned;
+      }
+      return note;
+    });
+  };
+
   return (
     <section className="w-full mt-8 h-[60vh]">
       {isEdit && (
@@ -114,11 +123,18 @@ const Note = () => {
                   }}
                 />
               </div>
-              <div className="">
-                <BsPinFill
-                  size={24}
-                  className="cursor-pointer text-[#8ec09f] z-11"
-                />
+              <div className="" onClick={() => setPin(note.uuid)}>
+                {note.pinned ? (
+                  <BsPinFill
+                    size={24}
+                    className="cursor-pointer text-[#8ec09f] z-11"
+                  />
+                ) : (
+                  <BsPin
+                    size={24}
+                    className="cursor-pointer text-[#8ec09f] z-11"
+                  />
+                )}
               </div>
             </div>
           </div>

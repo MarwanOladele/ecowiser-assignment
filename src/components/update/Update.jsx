@@ -1,5 +1,5 @@
 import { ref, update } from "firebase/database";
-import { db } from "../../firebase";
+import {db } from "../../firebase";
 import { toast } from "react-toastify";
 
 const Update = ({ newNote, setNewNote, tempuuid, setIsEdit }) => {
@@ -32,6 +32,7 @@ const Update = ({ newNote, setNewNote, tempuuid, setIsEdit }) => {
             type="text"
             className={inputStyle}
             placeholder="Title"
+            maxLength={50}
             name="title"
             value={title}
             onChange={handleChange}
@@ -40,6 +41,7 @@ const Update = ({ newNote, setNewNote, tempuuid, setIsEdit }) => {
             type="text"
             className={inputStyle}
             placeholder="Tagline"
+            maxLength={50}
             name="tagline"
             value={tagline}
             onChange={handleChange}
@@ -48,7 +50,7 @@ const Update = ({ newNote, setNewNote, tempuuid, setIsEdit }) => {
             type="text"
             className={inputStyle}
             placeholder="Note"
-            maxLength={100}
+            maxLength={200}
             name="note"
             value={note}
             onChange={handleChange}

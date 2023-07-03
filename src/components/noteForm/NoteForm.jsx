@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { db } from "../../firebase";
+import {db } from "../../firebase";
 import { ref, set } from "firebase/database";
 
 const NoteForm = () => {
@@ -46,6 +46,7 @@ const NoteForm = () => {
               <input
                 type="text"
                 placeholder="Title"
+                maxLength={50}
                 className={inputStyle}
                 name="title"
                 value={title}
@@ -56,6 +57,7 @@ const NoteForm = () => {
               <input
                 type="text"
                 placeholder="Tagline"
+                maxLength={50}
                 className={inputStyle}
                 name="tagline"
                 value={tagline}
@@ -71,7 +73,7 @@ const NoteForm = () => {
               name="note"
               value={note}
               onChange={handleChange}
-              maxLength={100}
+              maxLength={200}
             />
           </div>
         </div>
