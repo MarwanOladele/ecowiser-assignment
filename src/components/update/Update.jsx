@@ -3,7 +3,7 @@ import {db } from "../../firebase";
 import { toast } from "react-toastify";
 
 const Update = ({ newNote, setNewNote, tempuuid, setIsEdit }) => {
-  const { title, tagline, note, pinned } = newNote;
+  const { title, tagline, note } = newNote;
 
   const inputStyle = `border text-gray-900 text-sm rounded-sm w-full p-1.5  
      dark:border-gray-300 dark:placeholder-gray-500 outline-none`;

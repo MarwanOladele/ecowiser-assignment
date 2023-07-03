@@ -1,7 +1,6 @@
 import { onValue, ref, remove, update } from "firebase/database";
 import { useEffect, useState } from "react";
 import { db } from "../../firebase";
-import Pagination from "../pagination/Pagination";
 import { MdDelete } from "react-icons/md";
 import { BsPinFill, BsPin } from "react-icons/bs";
 import { toast } from "react-toastify";
@@ -28,6 +27,10 @@ const PinNote = () => {
       }
     });
   }, []);
+
+  const newItems = notes.filter((note) => note.pinned === true);
+
+  console.log(newItems);
 
   const handleDelete = (note) => {
     // e.stopPropagation();
@@ -57,7 +60,7 @@ const PinNote = () => {
   };
 
   return (
-    <section className="w-full mt-8">
+    <section className="w-full mt-8 mb-20">
       {isEdit && (
         <Update
           newNote={newNote}
@@ -66,8 +69,13 @@ const PinNote = () => {
           setIsEdit={setIsEdit}
         />
       )}
+      {newItems.length > 0 && (
+        <div className="w-5/6 mx-auto flex flex-wrap justify-start items-start gap-4">
+          <p className="text-[18px] font-bold uppercase">Pinned Items</p>
+        </div>
+      )}
       <div className="w-5/6 mx-auto flex flex-wrap justify-start items-start gap-4 h-full">
-        {notes?.reverse().map(
+        {newItems?.reverse().map(
           (note) =>
             note.pinned === true && (
               <div
