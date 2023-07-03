@@ -71,7 +71,7 @@ const PinNote = () => {
       )}
       {newItems.length > 0 && (
         <div className="w-5/6 mx-auto flex flex-wrap justify-start items-start gap-4">
-          <p className="text-[18px] font-bold uppercase">Pinned Items</p>
+          <p className="text-[18px] font-bold uppercase">Pinned Notes</p>
         </div>
       )}
       <div className="w-5/6 mx-auto flex flex-wrap justify-start items-start gap-4 h-full">
